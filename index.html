@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ishan Diamond Top Up Store</title>
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #2b1055, #7597de);
+  color: #fff;
+  overflow-x: hidden;
+}
+header {
+  padding: 20px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  animation: fadeDown 1s ease;
+}
+@keyframes fadeDown {
+  from {opacity:0; transform:translateY(-20px);}
+  to {opacity:1; transform:translateY(0);}
+}
+.container {
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+  gap:16px;
+}
+.card {
+  background: rgba(0,0,0,0.4);
+  border-radius:16px;
+  padding:16px;
+  text-align:center;
+  box-shadow:0 8px 25px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover { transform: translateY(-5px); box-shadow:0 12px 30px rgba(0,0,0,0.6); }
+.price {
+  font-size:18px;
+  font-weight:bold;
+  color:#ffdd57;
+}
+button {
+  margin-top:10px;
+  padding:10px 16px;
+  border:none;
+  border-radius:20px;
+  background:#ff4ecd;
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer;
+  transition: transform 0.2s ease;
+}
+button:hover { transform: scale(1.05); }
+.cart {
+  max-width:500px;
+  margin:20px auto;
+  padding:16px;
+  background: rgba(0,0,0,0.45);
+  border-radius:18px;
+  animation: fadeUp 1s ease;
+}
+@keyframes fadeUp {
+  from {opacity:0; transform:translateY(20px);}
+  to {opacity:1; transform:translateY(0);}
+}
+.cart-item {
+  display:flex;
+  justify-content:space-between;
+  margin:6px 0;
+}
+.total {
+  font-weight:bold;
+  font-size:18px;
+  margin-top:10px;
+  color:#00ffcc;
+}
+.order-box {
+  background: rgba(0,0,0,0.55);
+  max-width:500px;
+  margin:20px auto;
+  padding:20px;
+  border-radius:18px;
+}
+input {
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+  border-radius:10px;
+  border:none;
+}
+.popup {
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.7);
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+.popup-box {
+  background:#2b1055;
+  padding:30px;
+  border-radius:20px;
+  text-align:center;
+  animation: pop 0.5s ease;
+}
+</style>
+</head>
+<body>
+
+<header>💎 Ishan Diamond Top Up Store 💎</header>
+
+<div class="container" id="packages"></div>
+
+<div class="cart" id="cart">
+  <h3>🛒 Cart</h3>
+  <div id="cartItems">No items added</div>
+  <div class="total" id="totalCost">Total: Rs.0</div>
+</div>
+
+<div class="order-box">
+  <h2>📦 Complete Order</h2>
+  <input type="text" id="phone" placeholder="Buyer Phone Number"/>
+  <button onclick="sendOrder()">Submit Order</button>
+</div>
+
+<div class="popup" id="popup">
+  <div class="popup-box">
+    <h2>✅ Order Successful</h2>
+    <p>Thank You For Your Order.<br>We will send you a message within 20 minutes.</p>
+    <button onclick="closePopup()">OK</button>
+  </div>
+</div>
+
+<script>
+const PACKAGES = [
+  {name:'Weekly Lite',price:120},
+  {name:'Weekly',price:520},
+  {name:'Monthly',price:2570},
+  {name:'Little Pack',price:1280},
+  {name:'VIP Pack',price:3090},
+  {name:'VIP Special',price:3200},
+  {name:'Big Pack',price:4620},
+  {name:'Super VIP',price:6150}
+];
+
+let cart = [];
+const pkgDiv = document.getElementById('packages');
+const cartDiv = document.getElementById('cartItems');
+const totalDiv = document.getElementById('totalCost');
+
+PACKAGES.forEach(p => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `<h3>${p.name}</h3><div class='price'>Rs.${p.price}</div><button>Add to Cart</button>`;
+  card.querySelector('button').onclick = () => addToCart(p);
+  pkgDiv.appendChild(card);
+});
+
+function addToCart(p) {
+  cart.push(p);
+  renderCart();
+}
+
+function renderCart() {
+  if (!cart.length) {
+    cartDiv.innerHTML = 'No items added';
+    totalDiv.innerText = 'Total: Rs.0';
+    return;
+  }
+  cartDiv.innerHTML = '';
+  let total = 0;
+  cart.forEach(i => {
+    cartDiv.innerHTML += `<div class='cart-item'>${i.name} <span>Rs.${i.price}</span></div>`;
+    total += i.price;
+  });
+  totalDiv.innerText = `Total: Rs.${total}`;
+}
+
+function sendOrder() {
+  const phone = document.getElementById('phone').value.trim();
+  if (!phone || !cart.length) { alert('Add package & phone'); return; }
+  const items = cart.map(i => `${i.name} (Rs.${i.price})`).join('\n');
+  const totalAmount = cart.reduce((a,b)=>a+b.price,0);
+  const text = `🛒 New Order\n\n${items}\n\n📞 Phone: ${phone}\n💰 Total: Rs.${totalAmount}`;
+
+  fetch('https://api.telegram.org/bot8106750141:AAGLbi-JZb0vhdMH3bMcbeX8L3IpdcJenxM/sendMessage',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({chat_id:'1720283336',text})
+  }).then(()=>{
+    document.getElementById('popup').style.display='flex';
+    cart = [];
+    renderCart();
+    document.getElementById('phone').value='';
+  }).catch(()=>alert('Failed to send order.'));
+}
+
+function closePopup() { document.getElementById('popup').style.display='none'; }
+</script>
+
+</body>
+</html>
