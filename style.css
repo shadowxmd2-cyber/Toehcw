@@ -1,11 +1,70 @@
+*{
+  box-sizing:border-box;
+}
+
 body{
+  margin:0;
   background:#12001f;
   color:white;
   font-family:Arial;
   text-align:center;
 }
-.logo{width:90px}
-.banner{width:95%;border-radius:15px}
-.product{background:#2a0140;margin:10px;padding:15px;border-radius:12px}
-button{background:#7c00ff;color:white;border:none;padding:8px 15px;border-radius:8px}
-input{padding:8px;border-radius:6px;border:none}
+
+.logo{
+  width:80px;
+  margin-top:10px;
+}
+
+.banner{
+  width:95%;
+  max-width:600px;
+  border-radius:15px;
+  margin:10px auto;
+}
+
+.product{
+  background:#2a0140;
+  margin:10px auto;
+  padding:15px;
+  border-radius:12px;
+  width:90%;
+  max-width:400px;
+}
+
+button{
+  background:#7c00ff;
+  color:white;
+  border:none;
+  padding:10px 16px;
+  border-radius:8px;
+  font-size:15px;
+  margin-top:8px;
+}
+
+input{
+  width:85%;
+  max-width:300px;
+  padding:10px;
+  margin:6px 0;
+  border-radius:8px;
+  border:none;
+  font-size:15px;
+}
+
+ul{
+  list-style:none;
+  padding:0;
+}
+
+footer{
+  margin-top:20px;
+  font-size:14px;
+  opacity:0.8;
+}
+
+/* MOBILE FIX */
+@media (max-width:600px){
+  h1{font-size:22px}
+  h2{font-size:18px}
+  h3{font-size:16px}
+  }
