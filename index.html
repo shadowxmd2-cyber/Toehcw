@@ -1,36 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>PRIME Diamond Store</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PRIME Diamond Store</title>
+<link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="fade">
 
-<header>
-  <img src="logo.jpg" class="logo">
-  <h1>PRIME Diamond Store</h1>
-</header>
+<img src="https://files.catbox.moe/af15rx.jpg" class="logo">
+<h1>PRIME Diamond Store</h1>
 
-<!-- AUTO BANNER -->
-<div class="slider">
-  <img id="banner" src="https://files.catbox.moe/ewhgr3.jpg">
+<div id="loginBox" class="card slide">
+  <input id="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+  <button onclick="register()">Register</button>
 </div>
 
-<h2>Products</h2>
-<div id="products"></div>
+<div id="goBox" style="display:none" class="card pop">
+  <h2>Welcome 🎉</h2>
+  <button onclick="location.href='store.html'">LET’S GO 🚀</button>
+</div>
 
-<h2>Cart</h2>
-<ul id="cart"></ul>
-<h3>Total: LKR <span id="total">0</span></h3>
-<button onclick="checkout()">Checkout</button>
-
-<footer>
-  <p>WhatsApp: 0771852401 | 0770051298</p>
-  <p>Email: primestore@info</p>
-</footer>
-
-<script src="script.js"></script>
+<script type="module" src="auth.js"></script>
 </body>
 </html>
