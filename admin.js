@@ -11,7 +11,6 @@ const addProductBtn=document.getElementById("addProductBtn");
 const pname=document.getElementById("pname");
 const pprice=document.getElementById("pprice");
 
-// Show Admin for admin email
 auth.onAuthStateChanged(user=>{
   if(user && user.email==="admin@primestore.com"){
     adminBox.style.display="block";
@@ -24,24 +23,23 @@ auth.onAuthStateChanged(user=>{
 addProductBtn.addEventListener("click", async ()=>{
   const name=pname.value;
   const price=parseInt(pprice.value);
-  if(!name||!price) return alert("Enter name & price");
-  products.push([name,price]);
+  if(!name || !price){ alert("Enter name & price"); return; }
+  window.products.push([name,price]);
   loadProducts();
   const prodRef=push(ref(db,'products'));
   await set(prodRef,{name:name,price:price});
   pname.value=""; pprice.value="";
 });
 
-// Load Members
+// Members
 async function loadMembers(){
   membersList.innerHTML="";
   const snapshot=await get(ref(db,'users'));
   if(snapshot.exists()){
     const data=snapshot.val();
     for(const uid in data){
-      const email=data[uid].email||"Unknown";
       const li=document.createElement("li");
-      li.innerText=email;
+      li.innerText=data[uid].email||"Unknown";
       membersList.appendChild(li);
     }
   }
@@ -63,4 +61,4 @@ async function loadAnalytics(){
   }
   visitorCount.innerText=visitor;
   dailyIncome.innerText=income;
-            }
+    }
