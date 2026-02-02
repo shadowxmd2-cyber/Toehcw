@@ -61,6 +61,16 @@ button:active{transform:scale(0.95)}
 .slide{animation:slide .6s}
 .pop{animation:pop .5s}
 
+/* Admin panel card styling included in .card already */
+#adminBox{
+  background:#1f0040;
+  border:2px solid #7c00ff;
+  padding:15px;
+  margin:15px auto;
+  width:90%;
+  max-width:400px;
+  border-radius:12px;
+}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 @keyframes slide{from{transform:translateY(20px);opacity:0}to{opacity:1}}
 @keyframes pop{0%{transform:scale(.8)}100%{transform:scale(1)}}
