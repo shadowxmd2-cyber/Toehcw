@@ -1,8 +1,7 @@
-<script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
-export const firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyAyF6qahTGFQQFpdx68nDycNbKl_-QEsjQ",
   authDomain: "ishan-be438.firebaseapp.com",
   databaseURL: "https://ishan-be438-default-rtdb.europe-west1.firebasedatabase.app",
@@ -14,4 +13,3 @@ export const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-</script>
