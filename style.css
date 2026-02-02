@@ -1,63 +1,66 @@
 *{box-sizing:border-box}
-
 body{
-  margin:0;
-  background:#12001f;
-  color:white;
-  font-family:Arial;
-  text-align:center;
+ margin:0;
+ background:#12001f;
+ color:white;
+ font-family:Arial;
+ text-align:center;
 }
 
 .logo{width:80px;margin-top:10px}
 
-.slider{
-  width:95%;
-  max-width:600px;
-  margin:10px auto;
-}
-
-.slider img{
-  width:100%;
-  border-radius:15px;
-  transition:opacity 0.6s ease-in-out;
-}
-
-.product{
-  background:#2a0140;
-  margin:10px auto;
-  padding:15px;
-  border-radius:12px;
-  width:90%;
-  max-width:400px;
-}
-
-button{
-  background:#7c00ff;
-  color:white;
-  border:none;
-  padding:10px 16px;
-  border-radius:8px;
-  font-size:15px;
+.card{
+ background:#2a0140;
+ padding:20px;
+ margin:15px auto;
+ width:90%;
+ max-width:350px;
+ border-radius:15px;
 }
 
 input{
-  width:85%;
-  max-width:300px;
-  padding:10px;
-  margin:6px 0;
-  border-radius:8px;
-  border:none;
+ width:90%;
+ padding:10px;
+ margin:6px 0;
+ border-radius:8px;
+ border:none;
 }
 
-ul{list-style:none;padding:0}
+button{
+ background:#7c00ff;
+ color:white;
+ border:none;
+ padding:10px 18px;
+ border-radius:10px;
+ font-size:15px;
+ margin-top:8px;
+ transition:transform .2s;
+}
+button:active{transform:scale(0.95)}
 
-footer{
-  margin:20px 0;
-  font-size:14px;
-  opacity:0.8;
+.product{
+ background:#2a0140;
+ padding:15px;
+ margin:10px auto;
+ width:90%;
+ max-width:400px;
+ border-radius:12px;
 }
 
-@media(max-width:600px){
-  h1{font-size:22px}
-  h2{font-size:18px}
+.slider img{
+ width:95%;
+ max-width:600px;
+ border-radius:15px;
+ opacity:0;
+ transition:opacity .6s;
 }
+.slider img.show{opacity:1}
+
+/* ANIMATIONS */
+.fade{animation:fade .8s}
+.slide{animation:slide .6s}
+.pop{animation:pop .5s}
+
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes slide{from{transform:translateY(20px);opacity:0}to{opacity:1}}
+@keyframes pop{0%{transform:scale(.8)}100%{transform:scale(1)}}
