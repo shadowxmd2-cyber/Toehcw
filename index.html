@@ -1,22 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>PRIME Diamond Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<img src="logo.jpg" class="logo">
-<h1>PRIME Diamond Store</h1>
-<img src="https://files.catbox.moe/1m0h7f.jpg" class="banner">
+<header>
+  <img src="logo.jpg" class="logo">
+  <h1>PRIME Diamond Store</h1>
+</header>
 
+<!-- AUTO BANNER -->
+<div class="slider">
+  <img id="banner" src="https://files.catbox.moe/ewhgr3.jpg">
+</div>
+
+<h2>Products</h2>
 <div id="products"></div>
 
 <h2>Cart</h2>
 <ul id="cart"></ul>
-<h3>Total LKR <span id="total">0</span></h3>
+<h3>Total: LKR <span id="total">0</span></h3>
 <button onclick="checkout()">Checkout</button>
 
-<script src="store.js"></script>
+<footer>
+  <p>WhatsApp: 0771852401 | 0770051298</p>
+  <p>Email: primestore@info</p>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
