@@ -1,22 +1,45 @@
-// ===== AUTO BANNER =====
-const banners=[
+import { db } from "./firebase.js";
+import { ref, set, push, get } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+
+// ===== AUTO BANNER 3 SECONDS + SWIPE =====
+const banners = [
  "https://files.catbox.moe/ewhgr3.jpg",
  "https://files.catbox.moe/4a8z4b.jpg",
  "https://files.catbox.moe/mbqzv5.jpg"
 ];
-let bannerIndex=0;
-setInterval(()=>{
- bannerIndex=(bannerIndex+1)%banners.length;
- const bannerImg = document.getElementById("banner");
- bannerImg.classList.remove("show");
- setTimeout(()=>{
-   bannerImg.src = banners[bannerIndex];
-   bannerImg.classList.add("show");
- },300);
-},8000);
+let bannerIndex = 0;
+const bannerImg = document.getElementById("banner");
+
+// Auto swipe every 3 seconds
+let bannerInterval = setInterval(changeBanner, 3000);
+
+function changeBanner(nextIndex = null){
+  if(nextIndex !== null) bannerIndex = nextIndex;
+  else bannerIndex = (bannerIndex + 1) % banners.length;
+  
+  bannerImg.classList.remove("show");
+  setTimeout(()=>{
+    bannerImg.src = banners[bannerIndex];
+    bannerImg.classList.add("show");
+  },300);
+}
+
+// Mobile swipe
+let startX = 0;
+bannerImg.addEventListener("touchstart",(e)=>{ startX=e.touches[0].clientX });
+bannerImg.addEventListener("touchend",(e)=>{
+  let endX = e.changedTouches[0].clientX;
+  let diff = endX - startX;
+  if(Math.abs(diff)>50){
+    clearInterval(bannerInterval);
+    if(diff<0) changeBanner((bannerIndex+1)%banners.length); // swipe left
+    else changeBanner((bannerIndex-1+banners.length)%banners.length); // swipe right
+    bannerInterval = setInterval(changeBanner, 3000);
+  }
+});
 
 // ===== PRODUCTS & CART =====
-const products=[
+let products = [
 ["LEVEL UP PASS LOGIN",950],
 ["LEVEL UP PASS ID",1100],
 ["Gems 25",90],["Gems 50",140],["Gems 100",300],
@@ -27,19 +50,23 @@ const products=[
 ];
 
 let cart=[], total=0;
-
 const productsDiv = document.getElementById("products");
 const cartList = document.getElementById("cart");
 const totalSpan = document.getElementById("total");
 
-products.forEach(p=>{
-  const div = document.createElement("div");
-  div.className="product slide";
-  div.innerHTML=`${p[0]} - LKR ${p[1]}<br>
-    <button onclick="add('${p[0]}',${p[1]})">Add</button>`;
-  productsDiv.appendChild(div);
-});
+function loadProducts(){
+  productsDiv.innerHTML = "";
+  products.forEach(p=>{
+    const div = document.createElement("div");
+    div.className="product slide";
+    div.innerHTML=`${p[0]} - LKR ${p[1]}<br>
+      <button onclick="add('${p[0]}',${p[1]})">Add</button>`;
+    productsDiv.appendChild(div);
+  });
+}
+loadProducts();
 
+// Add to cart
 window.add = (name,price)=>{
   cart.push(`${name} - ${price}`);
   total += price;
@@ -47,7 +74,8 @@ window.add = (name,price)=>{
   totalSpan.innerText = total;
 }
 
-document.getElementById("checkoutBtn").addEventListener("click", ()=>{
+// Checkout → Telegram + WhatsApp + Firebase
+document.getElementById("checkoutBtn").addEventListener("click", async ()=>{
   const msg=`NEW ORDER\n${cart.join("\n")}\nTOTAL: LKR ${total}`;
 
   // Telegram
@@ -57,9 +85,19 @@ document.getElementById("checkoutBtn").addEventListener("click", ()=>{
     body:JSON.stringify({chat_id:"1720283336",text:msg})
   });
 
-  // WhatsApp Click-to-Chat
+  // WhatsApp Click-to-chat
   const wa = `https://wa.me/94771852401?text=${encodeURIComponent(msg)}`;
   window.open(wa,"_blank");
 
+  // Firebase orders
+  const orderRef = push(ref(db,'orders'));
+  await set(orderRef,{
+    items: cart,
+    total: total,
+    date: new Date().toLocaleDateString()
+  });
+
   alert("Order Sent to Telegram & WhatsApp ✅");
+  cart=[]; total=0;
+  cartList.innerHTML=""; totalSpan.innerText=0;
 });
