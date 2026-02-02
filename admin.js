@@ -61,4 +61,4 @@ async function loadAnalytics(){
   }
   visitorCount.innerText=visitor;
   dailyIncome.innerText=income;
-    }
+}
