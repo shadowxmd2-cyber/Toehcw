@@ -1,31 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>PRIME Diamond Store</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>PRIME Diamond Store</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <img src="https://files.catbox.moe/af15rx.jpg" class="logo">
 <h1>PRIME Diamond Store</h1>
 
+<!-- LOGIN BOX -->
 <div id="loginBox" class="card">
   <input id="email" type="email" placeholder="Email">
   <input id="password" type="password" placeholder="Password">
-
   <button id="loginBtn">Login</button>
   <button id="registerBtn">Register</button>
 </div>
 
-<div id="goBox" class="card" style="display:none">
+<!-- LET'S GO -->
+<div id="goBox" class="card pop" style="display:none">
   <h2>Welcome 🎉</h2>
-  <button onclick="location.href='store.html'">LET’S GO 🚀</button>
+  <button id="letsGoBtn">LET’S GO 🚀</button>
 </div>
 
-<!-- 🔥 IMPORTANT: type="module" -->
+<!-- STORE/PACKAGES -->
+<div id="storeBox" style="display:none">
+
+  <!-- AUTO BANNER -->
+  <div class="slider">
+    <img id="banner" src="https://files.catbox.moe/ewhgr3.jpg" class="show">
+  </div>
+
+  <h2>Packages</h2>
+  <div id="products"></div>
+
+  <h2>Cart</h2>
+  <ul id="cart"></ul>
+  <h3>Total: LKR <span id="total">0</span></h3>
+  <button id="checkoutBtn">Checkout</button>
+</div>
+
 <script type="module" src="auth.js"></script>
+<script type="module" src="store.js"></script>
 
 </body>
-</html>
+                                            </html>
