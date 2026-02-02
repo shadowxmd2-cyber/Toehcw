@@ -1,7 +1,6 @@
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-import { getDatabase } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyAyF6qahTGFQQFpdx68nDycNbKl_-QEsjQ",
@@ -10,11 +9,9 @@ export const firebaseConfig = {
   projectId: "ishan-be438",
   storageBucket: "ishan-be438.firebasestorage.app",
   messagingSenderId: "55636164157",
-  appId: "1:55636164157:web:20a7b36fd202a0e69a7454",
-  measurementId: "G-VQB00GZ075"
+  appId: "1:55636164157:web:20a7b36fd202a0e69a7454"
 };
 
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-export const db = getDatabase(app);
 </script>
