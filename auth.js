@@ -5,7 +5,7 @@ import {
   createUserWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
-/* 🔥 FIREBASE CONFIG */
+/* FIREBASE CONFIG */
 const firebaseConfig = {
   apiKey: "AIzaSyAyF6qahTGFQQFpdx68nDycNbKl_-QEsjQ",
   authDomain: "ishan-be438.firebaseapp.com",
@@ -19,12 +19,15 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-/* 🔗 ELEMENTS */
+/* ELEMENTS */
 const email = document.getElementById("email");
 const password = document.getElementById("password");
 const loginBox = document.getElementById("loginBox");
 const goBox = document.getElementById("goBox");
+const letsGoBtn = document.getElementById("letsGoBtn");
+const storeBox = document.getElementById("storeBox");
 
+/* LOGIN */
 document.getElementById("loginBtn").addEventListener("click", () => {
   signInWithEmailAndPassword(auth, email.value, password.value)
     .then(() => {
@@ -34,6 +37,7 @@ document.getElementById("loginBtn").addEventListener("click", () => {
     .catch(err => alert(err.message));
 });
 
+/* REGISTER */
 document.getElementById("registerBtn").addEventListener("click", () => {
   createUserWithEmailAndPassword(auth, email.value, password.value)
     .then(() => {
@@ -41,4 +45,10 @@ document.getElementById("registerBtn").addEventListener("click", () => {
       goBox.style.display = "block";
     })
     .catch(err => alert(err.message));
+});
+
+/* LET'S GO BUTTON */
+letsGoBtn.addEventListener("click", () => {
+  goBox.style.display = "none";
+  storeBox.style.display = "block";
 });
