@@ -46,6 +46,7 @@ button:active{transform:scale(0.95)}
  width:90%;
  max-width:400px;
  border-radius:12px;
+ animation:slide 0.6s;
 }
 
 .slider img{
@@ -53,10 +54,13 @@ button:active{transform:scale(0.95)}
  max-width:600px;
  border-radius:15px;
  opacity:0;
- transition:opacity .6s;
+ transition:opacity 0.3s ease-in-out;
 }
-.slider img.show{opacity:1}
+.slider img.show{
+ opacity:1;
+}
 
+/* ANIMATIONS */
 .fade{animation:fade .8s}
 .slide{animation:slide .6s}
 .pop{animation:pop .5s}
@@ -65,13 +69,9 @@ button:active{transform:scale(0.95)}
 @keyframes slide{from{transform:translateY(20px);opacity:0}to{opacity:1}}
 @keyframes pop{0%{transform:scale(.8)}100%{transform:scale(1)}}
 
-/* Admin panel */
-#adminBox{
-  background:#1f0040;
-  border:2px solid #7c00ff;
-  padding:15px;
-  margin:15px auto;
-  width:90%;
-  max-width:400px;
-  border-radius:12px;
-     }
+/* MOBILE */
+@media(max-width:600px){
+ h1{font-size:22px}
+ h2{font-size:18px}
+ h3{font-size:16px}
+}
