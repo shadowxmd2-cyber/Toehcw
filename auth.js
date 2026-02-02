@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
 /* FIREBASE CONFIG */
 const firebaseConfig = {
@@ -18,8 +19,8 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getDatabase(app);
 
-/* ELEMENTS */
 const email = document.getElementById("email");
 const password = document.getElementById("password");
 const loginBox = document.getElementById("loginBox");
@@ -27,28 +28,25 @@ const goBox = document.getElementById("goBox");
 const letsGoBtn = document.getElementById("letsGoBtn");
 const storeBox = document.getElementById("storeBox");
 
-/* LOGIN */
-document.getElementById("loginBtn").addEventListener("click", () => {
-  signInWithEmailAndPassword(auth, email.value, password.value)
-    .then(() => {
-      loginBox.style.display = "none";
-      goBox.style.display = "block";
-    })
-    .catch(err => alert(err.message));
+document.getElementById("loginBtn").addEventListener("click", ()=>{
+  signInWithEmailAndPassword(auth,email.value,password.value)
+  .then(user=>{
+    loginBox.style.display="none";
+    goBox.style.display="block";
+  }).catch(e=>alert(e.message));
 });
 
-/* REGISTER */
-document.getElementById("registerBtn").addEventListener("click", () => {
-  createUserWithEmailAndPassword(auth, email.value, password.value)
-    .then(() => {
-      loginBox.style.display = "none";
-      goBox.style.display = "block";
-    })
-    .catch(err => alert(err.message));
+document.getElementById("registerBtn").addEventListener("click", ()=>{
+  createUserWithEmailAndPassword(auth,email.value,password.value)
+  .then(user=>{
+    // Save user email to Firebase users node
+    set(ref(db,'users/'+user.user.uid),{email:email.value});
+    loginBox.style.display="none";
+    goBox.style.display="block";
+  }).catch(e=>alert(e.message));
 });
 
-/* LET'S GO BUTTON */
-letsGoBtn.addEventListener("click", () => {
-  goBox.style.display = "none";
-  storeBox.style.display = "block";
+letsGoBtn.addEventListener("click", ()=>{
+  goBox.style.display="none";
+  storeBox.style.display="block";
 });
