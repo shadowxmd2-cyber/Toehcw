@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PRIME Diamond Store</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>PRIME Diamond Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="fade">
+<body>
 
 <img src="https://files.catbox.moe/af15rx.jpg" class="logo">
 <h1>PRIME Diamond Store</h1>
 
-<div id="loginBox">
-  <input id="email" placeholder="Email">
+<div id="loginBox" class="card">
+  <input id="email" type="email" placeholder="Email">
   <input id="password" type="password" placeholder="Password">
-  <button onclick="login()">Login</button>
-  <button onclick="register()">Register</button>
+
+  <button id="loginBtn">Login</button>
+  <button id="registerBtn">Register</button>
 </div>
 
-<div id="goBox" style="display:none">
+<div id="goBox" class="card" style="display:none">
   <h2>Welcome 🎉</h2>
   <button onclick="location.href='store.html'">LET’S GO 🚀</button>
 </div>
+
+<!-- 🔥 IMPORTANT: type="module" -->
+<script type="module" src="auth.js"></script>
+
+</body>
+</html>
