@@ -1,3 +1,17 @@
+// ===== AUTO BANNER =====
+const banners=[
+ "https://files.catbox.moe/ewhgr3.jpg",
+ "https://files.catbox.moe/4a8z4b.jpg",
+ "https://files.catbox.moe/mbqzv5.jpg"
+];
+
+let bannerIndex=0;
+setInterval(()=>{
+ bannerIndex=(bannerIndex+1)%banners.length;
+ document.getElementById("banner").src=banners[bannerIndex];
+},8000);
+
+// ===== STORE =====
 let cart=[], total=0;
 
 const products=[
@@ -7,7 +21,7 @@ const products=[
 ["Gems 200",550],["Gems 310",900],["Gems 520",1460],
 ["Gems 830",2180],["Gems 1060",2895],["Gems 1580",4040],
 ["Gems 2180",5800],["Gems 3240",8090],["Gems 5600",14665],
-["Gems 10060",24450],["Gems 11500",30200],["Weekly Lite",135]
+["Gems 10060",24450],["Gems 11500",30200]
 ];
 
 const div=document.getElementById("products");
@@ -31,8 +45,8 @@ function checkout(){
  headers:{"Content-Type":"application/json"},
  body:JSON.stringify({
   chat_id:"1720283336",
-  text:`😃 NEW ORDER\n${cart.join("\n")}\n😉 TOTAL: LKR ${total}`
+  text:`NEW ORDER\n${cart.join("\n")}\nTOTAL: LKR ${total}`
  })
 });
- alert("😙 Order Sent Successfully!");
+ alert("Order Sent Successfully!");
 }
